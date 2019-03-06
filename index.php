@@ -16,7 +16,7 @@
 		            <div class="py-2 sticky-top flex-grow-1">
 		                <div class="sidebar flex-sm-column">
 		                    <h1 class="my-4">🌏 Travel 
-		                    	<small>bucket list</small>
+		                    	<small>bucket list!</small>
 		                    </h1>
 		                </div>
 		            </div>
