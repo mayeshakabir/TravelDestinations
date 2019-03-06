@@ -1,2 +1,2 @@
-# TravelDestinations
-304 term project
+# Travel Destinations
+CPSC 304 term project
