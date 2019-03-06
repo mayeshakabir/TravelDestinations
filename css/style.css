@@ -1,0 +1,19 @@
+.dest-pic {
+  object-fit: cover;
+  width:250px;
+  height:250px;
+}
+
+.content {
+	margin: 10px;
+}
+
+.sidebar {
+	margin: 20px;
+}
+
+.bg-image {
+  background-image: url('https://source.unsplash.com/WEQbe2jBg40/600x1200');
+  background-size: cover;
+  background-position: center;
+}
