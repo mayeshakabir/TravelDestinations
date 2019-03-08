@@ -27,6 +27,9 @@ function queryDestinations() {
 			$destinations .=		  '<div class="reviews"><div class="review-title"><b>Reviews:</b></div>';
 			$destinations .= 		  queryReviews($conn, $row["dest_ID"]);
 			$destinations .=		  '</div>';
+			$destinations .=		  '<div class="activities"><div class="activity-title"><b>Activities:</b></div>';
+			$destinations .= 		  queryActivities($conn);
+			$destinations .=		  '</div>';
 			$destinations .=	    '</div>';
 			$destinations .=	'</div><hr>';
 		}
@@ -55,4 +58,10 @@ function queryReviews($conn, $dest_ID) {
 		return 'no reviews :('; 
 	}
 }
+
+function queryActivities($conn) {
+
+	return 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum';
+}
+
 ?>

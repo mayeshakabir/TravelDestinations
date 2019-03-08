@@ -13,15 +13,31 @@
 }
 
 .reviews {
-	height: 60px;
+	height: 55px;
 	width: 500px;
 	overflow: scroll;
 	background-color: lightblue;
 	padding: 10px;
 	font-family:'Century Gothic', sans-serif !important ;
 	font-size: 12px;
+	margin-bottom: 10px;
 }
 .review-title {
+	padding-bottom: 4px;
+	font-size: 13px;
+}
+
+.activities {
+	height: 55px;
+	width: 500px;
+	overflow: scroll;
+	background-color: lightpink;
+	padding: 10px;
+	font-family:'Century Gothic', sans-serif !important ;
+	font-size: 12px;
+	margin-bottom: 10px;
+}
+.activities-title {
 	padding-bottom: 4px;
 	font-size: 13px;
 }
