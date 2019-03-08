@@ -4,46 +4,55 @@ include 'connect.php';
 function queryDestinations() {
 	/* TODO need to give filters to write up the query using a POST*/
 	$conn = OpenCon();
-	$sql = "SELECT city_name, name, pic_url, description, rating, address FROM Destination";
+	$sql = "SELECT dest_ID, city_name, name, pic_url, description, rating, address FROM Destination";
 	$result = $conn->query($sql);
 	/* template
-	<div class="row">
-	    <div class="col-md">
-	      <a href="#">
-	        <img class="dest_pic" src="https://cdn2.veltra.com/ptr/20151019025210_2135428681_10001_0.jpg?imwidth=550&impolicy=custom" alt="">
-	      </a>
-	    </div>
-	    <div class="col-md">
-	      <h3>Tokyo Tower</h3>
-	      <p>description</p>
-	      <br> rank: ⭐⭐⭐
-	      <br> location:📍Tokyo, @address
-	    </div>
-	</div>
+	
 	*/
 	if ($result->num_rows > 0) {
 		$destinations = '<h1 class="my-4">→ <small>Top Destinations:</small></h1><br>'; 
 		while($row = $result->fetch_assoc()) { 
 			$destinations .=	'<div class="row">';
 			$destinations .=	    '<div class="col-lg-4">';
-			$destinations .=	      '<a><img class="dest-pic" src="'.$row["pic_url"].'" alt=""></a>';
+			$destinations .=	      '<img class="dest-pic" src="'.$row["pic_url"].'">';
 			$destinations .=	    '</div>';
 			$destinations .=	    '<div class="col-lg-8 ml-auto">';
 			$destinations .=	      '<h3>✈️ '.$row["name"].'</h3>';
-			$destinations .=	      '<p>'.$row["description"].'</p>';
+			$destinations .=	      '<p>'.$row["description"];
 			$destinations .=	      '<br> rating: ';
 										for ($i = 0; $i < $row["rating"]; $i++) {
 							    			$destinations .= '⭐';
 										} 
-			$destinations .=	      '<br> 📍'.$row["city_name"]. ', <b>@</b>'. $row["address"];
+			$destinations .=	      '<br> 📍'.$row["city_name"]. ', <b>@</b>'. $row["address"] . '</p>';
+			$destinations .=		  '<div class="reviews"><div class="review-title"><b>Reviews:</b></div>';
+			$destinations .= 		  queryReviews($conn, $row["dest_ID"]);
+			$destinations .=		  '</div>';
 			$destinations .=	    '</div>';
 			$destinations .=	'</div><hr>';
 		}
 		echo $destinations;
 	}
 	else {
-		echo "no destinations :("; 
+		echo "<p>no destinations :(</p>"; 
 	}
 	CloseCon($conn);
+}
+
+function queryReviews($conn, $dest_ID) {
+	$sql = "SELECT review FROM Review WHERE dest_ID=$dest_ID";
+	$result = $conn->query($sql);
+	$i = 1;
+
+	if ($result->num_rows > 0) {
+		$reviews = ''; 
+		while($row = $result->fetch_assoc()) { 
+			$reviews .=	$i . '. ' . $row["review"] . '<hr>';
+			$i++;
+		}
+		return $reviews;
+	}
+	else {
+		return 'no reviews :('; 
+	}
 }
 ?>
