@@ -26,7 +26,7 @@ function displayResults() {
 		}
 
 		//rank, rating, name
-			
+
 		$sql = "SELECT dest_ID, city_name, name, pic_url, description, rating, address FROM Destination ";
 		if(count($whereParts)) {
 	    	$sql .= "WHERE " . implode('AND ', $whereParts);
@@ -42,11 +42,11 @@ function queryDestinations($sql) {
 	require 'connect.php';
 	$result = $conn->query($sql);
 	/* template
-	
+
 	*/
 	if ($result->num_rows > 0) {
-		$destinations = '<h1 class="my-4">→ <small>Top Destinations:</small></h1><br>'; 
-		while($row = $result->fetch_assoc()) { 
+		$destinations = '<h1 class="my-4">→ <small>Top Destinations:</small></h1><br>';
+		while($row = $result->fetch_assoc()) {
 			$destinations .=	'<div class="row">';
 			$destinations .=	    '<div class="col-lg-4">';
 			$destinations .=	      '&nbsp&nbsp<img class="dest-pic" src="'.$row["pic_url"].'">';
@@ -57,7 +57,7 @@ function queryDestinations($sql) {
 			$destinations .=	      '<br> rating: ';
 										for ($i = 0; $i < $row["rating"]; $i++) {
 							    			$destinations .= '⭐';
-										} 
+										}
 			$destinations .=	      '<br>Location: 📍<i>'.$row["city_name"]. '</i>, <a href="https://maps.google.com/?q='.$row["address"].'" target="_blank"><b>@</b>'. $row["address"].'</a>' . '</p>';
 			$destinations .=		  '<div class="reviews"><div class="review-title"><b>📝 Reviews:</b></div>';
 			$destinations .= 		  queryReviews($conn, $row["dest_ID"]);
@@ -71,7 +71,7 @@ function queryDestinations($sql) {
 		echo $destinations;
 	}
 	else {
-		echo "<p>no destinations :(</p>"; 
+		echo "<p>no destinations :(</p>";
 	}
 }
 
@@ -82,15 +82,15 @@ function queryReviews($conn, $dest_ID) {
 	$i = 1;
 
 	if ($result->num_rows > 0) {
-		$reviews = ''; 
-		while($row = $result->fetch_assoc()) { 
+		$reviews = '';
+		while($row = $result->fetch_assoc()) {
 			$reviews .=	$i . '. ' . $row["review"] . ' - ' . queryPerson($conn, $row["p_ID"]) . '<hr>';
 			$i++;
 		}
 		return $reviews;
 	}
 	else {
-		return 'no reviews :('; 
+		return 'no reviews :(';
 	}
 }
 
@@ -116,26 +116,47 @@ function queryActivities($conn, $dest_ID) {
 function queryRecreation($conn, $dest_ID){
 	$sql = "SELECT * FROM (Recreation NATURAL JOIN
       (SELECT act_ID, name, cost_avg FROM Activity
-		WHERE act_ID IN 
+		WHERE act_ID IN
      		(SELECT act_ID FROM Destination_Activity
-      		WHERE dest_ID = $dest_ID) ) 
+      		WHERE dest_ID = $dest_ID) )
                AS T2)";
 
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-		$recreations = ''; 
-		while($row = $result->fetch_assoc()) { 
+		$recreations = '';
+		while($row = $result->fetch_assoc()) {
 			$recreations .= $row["name"] . ' | ' . $row["icon"] . ' | ' . $row["cost_avg"] . '<hr>';
 		}
-		return $recreations;
+		return $recreations.'<br>';
 	}
 	else {
-		return 'no recreation :('; 
+		return 'no recreation :(';
 	}
 }
 
 function queryTour($conn, $dest_ID){
+	$sql = "SELECT name, provider, cost_avg, url, duration FROM (Activity NATURAL JOIN Tour NATURAL JOIN Destination_Activity)
+     WHERE dest_ID = $dest_ID";
+
+		$result = $conn->query($sql);
+
+	 	if ($result->num_rows > 0) {
+	 	$tours = '';
+	 	while($row = $result->fetch_assoc()) {
+	 		$tours .= $row["name"] . ' | ';
+
+			$tours .= '<a href="https://' . $row["url"] .'" target="_blank">' . $row["provider"] . '</a>';
+
+
+			$tours .= ' | ' . $row["duration"] . '<hr>';
+	 	}
+	 	return $tours;
+	 }
+	 else {
+	 	return 'no tours :(';
+	 }
+
 
 }
 
