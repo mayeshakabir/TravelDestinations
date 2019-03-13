@@ -26,12 +26,15 @@ include 'src/activityList.php';
 		      <li class="nav-item">
 		        <a class="nav-link" href="#">Link</a>
 		      </li>
+		      <li class="nav-item">
+		      	<a class="nav-link" href="admin.php">Admin</a>
+		      </li>
 		    </ul>
 		  </div>
 		</nav>
 		<div class="container-fluid">
 			<div class="row">
-				<div class="d-none d-md-flex col-sm-3">
+				<div class="d-block col-sm-3">
 		            <div class="py-2 flex-grow-1">
 		                <div class="sidebar flex-sm-column">
 		                    <h1 class="my-4">🌏 Travel:
