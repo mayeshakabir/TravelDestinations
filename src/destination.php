@@ -63,7 +63,7 @@ function queryDestinations($sql) {
 			$destinations .= 		  queryReviews($conn, $row["dest_ID"]);
 			$destinations .=		  '</div>';
 			$destinations .=		  '<div class="activities"><div class="activities-title"><b>🚴 Activities:</b></div>';
-			$destinations .= 		  queryActivities($conn);
+			$destinations .= 		  queryActivities($conn, $row["dest_ID"]);
 			$destinations .=		  '</div>';
 			$destinations .=	    '</div>';
 			$destinations .=	'</div><hr>';
@@ -76,14 +76,15 @@ function queryDestinations($sql) {
 }
 
 function queryReviews($conn, $dest_ID) {
-	$sql = "SELECT review FROM Review WHERE dest_ID=$dest_ID";
+	$sql = "SELECT rating, review, p_ID FROM Review WHERE dest_ID = $dest_ID";
+
 	$result = $conn->query($sql);
 	$i = 1;
 
 	if ($result->num_rows > 0) {
 		$reviews = ''; 
 		while($row = $result->fetch_assoc()) { 
-			$reviews .=	$i . '. ' . $row["review"] . '<hr>';
+			$reviews .=	$i . '. ' . $row["review"] . ' - ' . queryPerson($conn, $row["p_ID"]) . '<hr>';
 			$i++;
 		}
 		return $reviews;
@@ -93,9 +94,47 @@ function queryReviews($conn, $dest_ID) {
 	}
 }
 
-function queryActivities($conn) {
+function queryPerson($conn, $p_ID) {
+	$sql = "SELECT name FROM Person WHERE p_ID = $p_ID";
 
-	return 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum';
+	$result = $conn->query($sql);
+
+	if ($result->num_rows > 0 ){
+		$row = $result->fetch_assoc();
+		return $row["name"];
+	}
+
+}
+
+function queryActivities($conn, $dest_ID) {
+
+	return queryRecreation($conn, $dest_ID) . queryTour($conn, $dest_ID);
+}
+
+function queryRecreation($conn, $dest_ID){
+	$sql = "SELECT * FROM (Recreation NATURAL JOIN
+      (SELECT act_ID, name, cost_avg FROM Activity
+		WHERE act_ID IN 
+     		(SELECT act_ID FROM Destination_Activity
+      		WHERE dest_ID = $dest_ID) ) 
+               AS T2)";
+
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+		$recreations = ''; 
+		while($row = $result->fetch_assoc()) { 
+			$recreations .= $row["name"] . ' | ' . $row["icon"] . ' | ' . $row["cost_avg"] . '<hr>';
+		}
+		return $recreations;
+	}
+	else {
+		return 'no recreation :('; 
+	}
+}
+
+function queryTour($conn, $dest_ID){
+
 }
 
 ?>
