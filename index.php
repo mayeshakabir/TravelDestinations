@@ -42,7 +42,7 @@ include 'src/activityList.php';
 										<option value="" disabled selected hidden>choose Activity</option>
 										<option value="">n/a</option> 
 										<?php echo activitySelect(); ?>
-										</select>
+									</select>
 								</div>
 								<hr>
 								<div class="form_input">
@@ -50,6 +50,18 @@ include 'src/activityList.php';
 										<option value="" disabled selected hidden>choose Country</option>
 										<option value="">n/a</option> 
 										<?php echo countrySelect(); ?>
+	                				</select>
+								</div>
+								<hr>
+								<div class="form_input">
+									<select id="filter_city" class="form-control" name="filter_city">
+										<option value="" disabled selected hidden>choose Major City</option>
+										<option value="">n/a</option> 
+										<option value="London">London</option> 
+										<option value="Seattle">Seattle</option> 
+										<option value="Paris">Paris</option> 
+										<option value="Vancouver">Vancouver</option> 
+										<option value="Tokyo">Tokyo</option> 
 	                				</select>
 								</div>
 								<hr>

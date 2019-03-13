@@ -8,6 +8,7 @@ function displayResults() {
 
 		$activity = (isset($_POST['filter_activity'])) ? $_POST['filter_activity'] : "";
 		$country = (isset($_POST['filter_country'])) ? $_POST['filter_country'] : "";
+		$city = (isset($_POST['filter_city'])) ? $_POST['filter_city'] : "";
 		$rating = (isset($_POST['filter_rating'])) ? $_POST['filter_rating'] : "";
 		$whereParts = array();
 
@@ -15,11 +16,16 @@ function displayResults() {
 			$whereParts[] = "activity LIKE '%$activity%' ";
 		}
 		if ($country !== "") {
-			$whereParts[] = "country LIKE '%$country%' ";
+			$whereParts[] = "country_id IN (SELECT country_ID FROM Country WHERE name LIKE '%$country%') ";
+		}
+		if ($city !== "") {
+			$whereParts[] = "city_name LIKE '%$city%' ";
 		}
 		if ($rating !== "") {
 			$whereParts[] = "rating LIKE '%$rating%' ";
 		}
+
+		//rank, rating, name
 			
 		$sql = "SELECT dest_ID, city_name, name, pic_url, description, rating, address FROM Destination ";
 		if(count($whereParts)) {
