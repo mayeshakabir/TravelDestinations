@@ -1,3 +1,12 @@
+body {
+   	margin: 0;
+ 	background: #ffffff;
+ 	background-image: url("../img/background.png");
+ 	background-attachment: fixed;
+ 	background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
 .dest-pic {
   object-fit: cover;
   width:250px;
@@ -14,32 +23,32 @@
 
 .reviews {
 	height: 55px;
-	width: 500px;
+	width: 550px;
 	overflow: scroll;
-	background-color: lightblue;
+	background-color: #CCDDFF;
 	padding: 10px;
 	font-family:'Century Gothic', sans-serif !important ;
-	font-size: 12px;
+	font-size: 11px;
 	margin-bottom: 10px;
 }
 .review-title {
 	padding-bottom: 4px;
-	font-size: 13px;
+	font-size: 12px;
 }
 
 .activities {
 	height: 55px;
-	width: 500px;
+	width: 550px;
 	overflow: scroll;
-	background-color: lightpink;
+	background-color: #FFCCCC;
 	padding: 10px;
 	font-family:'Century Gothic', sans-serif !important ;
-	font-size: 12px;
+	font-size: 11px;
 	margin-bottom: 10px;
 }
 .activities-title {
 	padding-bottom: 4px;
-	font-size: 13px;
+	font-size: 12px;
 }
 
 .bg-image {
@@ -54,6 +63,7 @@ p {
 }
 
 h3 {
+	font-family:'Century Gothic', sans-serif !important ;
 	font-size: 25px;
 	letter-spacing: 3px;
 }

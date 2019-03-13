@@ -1,10 +1,39 @@
 <?php
-include 'connect.php';
 
-function queryDestinations() {
-	/* TODO need to give filters to write up the query using a POST*/
-	$conn = OpenCon();
+function displayResults() {
 	$sql = "SELECT dest_ID, city_name, name, pic_url, description, rating, address FROM Destination";
+
+	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+		require 'connect.php';
+
+		$activity = (isset($_POST['filter_activity'])) ? $_POST['filter_activity'] : "";
+		$country = (isset($_POST['filter_country'])) ? $_POST['filter_country'] : "";
+		$rating = (isset($_POST['filter_rating'])) ? $_POST['filter_rating'] : "";
+		$whereParts = array();
+
+		if ($activity !== "") {
+			$whereParts[] = "activity LIKE '%$activity%' ";
+		}
+		if ($country !== "") {
+			$whereParts[] = "country LIKE '%$country%' ";
+		}
+		if ($rating !== "") {
+			$whereParts[] = "rating LIKE '%$rating%' ";
+		}
+			
+		$sql = "SELECT dest_ID, city_name, name, pic_url, description, rating, address FROM Destination ";
+		if(count($whereParts)) {
+	    	$sql .= "WHERE " . implode('AND ', $whereParts);
+		}
+	}
+	echo $sql;
+	queryDestinations($sql);
+}
+
+function queryDestinations($sql) {
+	/* TODO need to give filters to write up the query using a POST*/
+	//$conn = OpenCon();
+	require 'connect.php';
 	$result = $conn->query($sql);
 	/* template
 	
@@ -14,20 +43,20 @@ function queryDestinations() {
 		while($row = $result->fetch_assoc()) { 
 			$destinations .=	'<div class="row">';
 			$destinations .=	    '<div class="col-lg-4">';
-			$destinations .=	      '<img class="dest-pic" src="'.$row["pic_url"].'">';
+			$destinations .=	      '&nbsp&nbsp<img class="dest-pic" src="'.$row["pic_url"].'">';
 			$destinations .=	    '</div>';
 			$destinations .=	    '<div class="col-lg-8 ml-auto">';
-			$destinations .=	      '<h3>✈️ '.$row["name"].'</h3>';
-			$destinations .=	      '<p>'.$row["description"];
+			$destinations .=	      '<h3>'.$row["name"].' <small>✈️ </small></h3>';
+			$destinations .=	      '<p><b>'.$row["description"].'</b>';
 			$destinations .=	      '<br> rating: ';
 										for ($i = 0; $i < $row["rating"]; $i++) {
 							    			$destinations .= '⭐';
 										} 
-			$destinations .=	      '<br> 📍'.$row["city_name"]. ', <b>@</b>'. $row["address"] . '</p>';
-			$destinations .=		  '<div class="reviews"><div class="review-title"><b>Reviews:</b></div>';
+			$destinations .=	      '<br>Location: 📍<i>'.$row["city_name"]. '</i>, <a href="https://maps.google.com/?q='.$row["address"].'" target="_blank"><b>@</b>'. $row["address"].'</a>' . '</p>';
+			$destinations .=		  '<div class="reviews"><div class="review-title"><b>📝 Reviews:</b></div>';
 			$destinations .= 		  queryReviews($conn, $row["dest_ID"]);
 			$destinations .=		  '</div>';
-			$destinations .=		  '<div class="activities"><div class="activity-title"><b>Activities:</b></div>';
+			$destinations .=		  '<div class="activities"><div class="activities-title"><b>🚴 Activities:</b></div>';
 			$destinations .= 		  queryActivities($conn);
 			$destinations .=		  '</div>';
 			$destinations .=	    '</div>';
@@ -38,7 +67,6 @@ function queryDestinations() {
 	else {
 		echo "<p>no destinations :(</p>"; 
 	}
-	CloseCon($conn);
 }
 
 function queryReviews($conn, $dest_ID) {
