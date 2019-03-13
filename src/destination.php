@@ -107,8 +107,10 @@ function queryPerson($conn, $p_ID) {
 }
 
 function queryActivities($conn, $dest_ID) {
-
-	return queryRecreation($conn, $dest_ID) . queryTour($conn, $dest_ID);
+	$activities = "";
+	$activities .= queryRecreation($conn, $dest_ID);
+	$activities .= queryTour($conn, $dest_ID);
+	return $activities;
 }
 
 function queryRecreation($conn, $dest_ID){
