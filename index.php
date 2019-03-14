@@ -39,6 +39,7 @@ include 'src/activityList.php';
 		                <div class="sidebar flex-sm-column">
 		                    <h1 class="my-4">🌏 Travel:
 		                    </h1>
+
 		                    <form class="form-horizontal" method="POST" action="#">
 								<div class="form_input">
 									<select id="filter_activity" class="form-control" name="filter_activity">
@@ -86,6 +87,7 @@ include 'src/activityList.php';
 		            </div>
 		        </div>
 				<div class="col content">
+					<button onclick="location.href='addLocation.php'">Add a Location</button>
 					<?php
 					displayResults();
 					?>

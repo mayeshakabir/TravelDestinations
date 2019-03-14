@@ -26,8 +26,8 @@ include 'src/activityList.php';
 		      <li class="nav-item">
 		        <a class="nav-link" href="#">Link</a>
 		      </li>
-		      <li class="nav-item active">
-		      	<a class="nav-link" href="#">Admin</a>
+		      <li class="nav-item">
+		      	<a class="nav-link" href="admin.php">Admin</a>
 		      </li>
 		    </ul>
 		  </div>
@@ -44,7 +44,32 @@ include 'src/activityList.php';
 		            </div>
 		        </div>
 				<div class="col content">
-					<h1> New content for admin will be here</h1>
+					<h1> Users will be able to add destinations here</h1>
+					<form action="" method="post">
+						Name: <input type="text" name="name"><br>
+						Nearest City: <input type="text" name="city"><br>
+						Country: 
+						<div class="form_input">
+									<select id="filter_country" class="form-control" name="filter_country">
+										<option value="" disabled selected hidden>choose Country</option>
+										<option value="">n/a</option> 
+										<?php echo countrySelect(); ?>
+	                				</select>
+						</div>
+						Rating:
+						<div class="form_input">
+									<select id="filter_rating" class="form-control" name="filter_rating">
+										<option value="" disabled selected hidden>choose Rating</option>
+										<option value="">n/a</option> 
+										<option value=5>⭐⭐⭐⭐⭐</option> 
+										<option value=4>⭐⭐⭐⭐</option> 
+										<option value=3>⭐⭐⭐</option> 
+										<option value=2>⭐⭐</option> 
+										<option value=1>⭐</option> 
+	                				</select>
+								</div>
+						<input type="submit">
+						</form>
 					<?php
 
 					//displayResults();
