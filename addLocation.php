@@ -4,6 +4,7 @@ include 'src/connect.php';
 include 'src/destination.php'; 
 include 'src/countryList.php'; 
 include 'src/activityList.php';
+include 'src/generate.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -89,6 +90,7 @@ include 'src/activityList.php';
 						<input type="submit">
 						</form>
 					<?php
+					generateDestination();
 					//generateDestination();   <-- THIS IS CAUSING PROBLEMS
 					
 					?>
