@@ -14,7 +14,12 @@ function displayResults() {
 		$whereParts = array();
 
 		if ($activity !== "") {
-			$whereParts[] = "activity LIKE '%$activity%' ";
+			$whereParts[] = "dest_ID IN (SELECT dest_ID
+																	FROM Destination_Activity
+                   								WHERE act_ID IN (SELECT act_ID
+                                  								FROM Activity
+                                  								WHERE name LIKE '%$activity%')
+                   																)";
 		}
 		if ($country !== "") {
 			$whereParts[] = "country_id IN (SELECT country_ID FROM Country WHERE name LIKE '%$country%') ";

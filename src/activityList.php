@@ -1,8 +1,12 @@
 <?php
 function activitySelect() {
-	$activities = '<option value="United States">United States</option> 
-		<option value="skiing">Skiing</option> 
-		<option value="hiking">Hiking</option>';
+	$activities = '<option value="sightseeing">sightseeing</option>
+		<option value="skiing">Skiing</option>
+		<option value="hiking">Hiking</option>
+		<option value="swimming">Swimming</option>
+		<option value="snowboarding">Snowboarding</option>
+		<option value="hiking">Hiking</option>
+		<option value="tour">Tours</option>';
 		echo $activities;
 }
 
