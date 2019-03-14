@@ -46,9 +46,22 @@ include 'src/activityList.php';
 				<div class="col content">
 					<h1> Users will be able to add destinations here</h1>
 					<form action="" method="post">
-						Name: <input type="text" name="name"><br>
-						Nearest City: <input type="text" name="city"><br>
+					<div class="row">
+						<div class ="col-sm-2">
+						Name:
+						</div> 
+						<input type="text" name="name"><br>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">
+						Nearest City:
+						</div>
+						<input type="text" name="city"><br>
+					</div>
+					<div class="row">
+					<div class="col-sm-2">
 						Country: 
+					</div>
 						<div class="form_input">
 									<select id="filter_country" class="form-control" name="filter_country">
 										<option value="" disabled selected hidden>choose Country</option>
@@ -56,18 +69,23 @@ include 'src/activityList.php';
 										<?php echo countrySelect(); ?>
 	                				</select>
 						</div>
-						Rating:
-						<div class="form_input">
-									<select id="filter_rating" class="form-control" name="filter_rating">
-										<option value="" disabled selected hidden>choose Rating</option>
-										<option value="">n/a</option> 
-										<option value=5>⭐⭐⭐⭐⭐</option> 
-										<option value=4>⭐⭐⭐⭐</option> 
-										<option value=3>⭐⭐⭐</option> 
-										<option value=2>⭐⭐</option> 
-										<option value=1>⭐</option> 
-	                				</select>
-								</div>
+					</div>
+						<div class="row">
+							<div class="col-sm-2">
+							Rating:
+							</div>
+							<div class="form_input">
+										<select id="filter_rating" class="form-control" name="filter_rating">
+											<option value="" disabled selected hidden>choose Rating</option>
+											<option value="">n/a</option> 
+											<option value=5>⭐⭐⭐⭐⭐</option> 
+											<option value=4>⭐⭐⭐⭐</option> 
+											<option value=3>⭐⭐⭐</option> 
+											<option value=2>⭐⭐</option> 
+											<option value=1>⭐</option> 
+		                				</select>
+							</div>
+						</div>
 						<input type="submit">
 						</form>
 					<?php
