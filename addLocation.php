@@ -89,8 +89,8 @@ include 'src/activityList.php';
 						<input type="submit">
 						</form>
 					<?php
-
-					//displayResults();
+					//generateDestination();   <-- THIS IS CAUSING PROBLEMS
+					
 					?>
 				</div>
 			</div>
