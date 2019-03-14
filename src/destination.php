@@ -10,6 +10,7 @@ function displayResults() {
 		$country = (isset($_POST['filter_country'])) ? $_POST['filter_country'] : "";
 		$city = (isset($_POST['filter_city'])) ? $_POST['filter_city'] : "";
 		$rating = (isset($_POST['filter_rating'])) ? $_POST['filter_rating'] : "";
+		
 		$whereParts = array();
 
 		if ($activity !== "") {
@@ -32,7 +33,6 @@ function displayResults() {
 	    	$sql .= "WHERE " . implode('AND ', $whereParts);
 		}
 	}
-	echo $sql;
 	queryDestinations($sql);
 }
 
