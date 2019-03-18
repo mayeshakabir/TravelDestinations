@@ -1,9 +1,9 @@
 <?php
 session_start();
-include 'src/connect.php';
-include 'src/destination.php'; 
-include 'src/countryList.php'; 
-include 'src/activityList.php';
+include 'connect.php';
+include 'destination.php'; 
+include 'countryList.php'; 
+include 'activityList.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,7 +21,7 @@ include 'src/activityList.php';
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 		    <ul class="navbar-nav mr-auto">
 		      <li class="nav-item">
-		        <a class="nav-link" href="index.php">Home</a>
+		        <a class="nav-link" href="homepage.php">Home</a>
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link" href="#">Link</a>

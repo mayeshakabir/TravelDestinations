@@ -8,7 +8,7 @@ function generateDestination(){
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		require 'connect.php';
 
-		$dest_name = (isset($_POST['dest_name'])) ? $_POST['dest_name'] : "";
+		$dest_name = (isset($_POST['name'])) ? $_POST['dest_name'] : "";
 		$dest_country = (isset($_POST['dest_country'])) ? $_POST['dest_country'] : "";
 		$dest_city = (isset($_POST['dest_city'])) ? $_POST['dest_city'] : "";
 		$dest_rating = (isset($_POST['dest_rating'])) ? $_POST['dest_rating'] : "";

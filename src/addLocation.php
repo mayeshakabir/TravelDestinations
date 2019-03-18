@@ -1,10 +1,10 @@
 <?php
 session_start();
-include 'src/connect.php';
-include 'src/destination.php'; 
-include 'src/countryList.php'; 
-include 'src/activityList.php';
-include 'src/generate.php';
+include 'connect.php';
+include 'destination.php'; 
+include 'countryList.php'; 
+include 'activityList.php';
+include 'generate.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,7 +46,7 @@ include 'src/generate.php';
 		        </div>
 				<div class="col content">
 					<h1> Users will be able to add destinations here</h1>
-					<form action="" method="post">
+					<form action="#" method="post">
 					<div class="row">
 						<div class ="col-sm-2">
 						Name:
@@ -90,7 +90,7 @@ include 'src/generate.php';
 						<input type="submit">
 						</form>
 					<?php
-					generateDestination();
+					echo generateDestination();
 					//generateDestination();   <-- THIS IS CAUSING PROBLEMS
 					
 					?>
