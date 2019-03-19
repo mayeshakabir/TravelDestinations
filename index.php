@@ -19,28 +19,48 @@ include 'src/login.php';
 	</head>
 	<body>
 		<div class="container-fluid">
-			<div class="sidenav">
-         <div class="login-main-text">
-            <h2>Application<br> Login Page</h2>
-            <p>Login or register from here to access.</p>
-         </div>
-      </div>
-			<div class="col-md-6 col-sm-12">
-				<div class="login-form">
-				   <form class="form-horizontal" method="POST" action="#">
-				      <div class="form-group">
-				         <label>User Name</label>
-				         <input type="text" class="form-control" placeholder="User Name" name="log_username">
+		  <div class="row no-gutter">
+		  <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"> 
+				<div class="names">
+					<div class="container">
+				      <div>
+				      	<center>
+				      		<h2><b>&copy; 2019</b><br></h2>
+				      		<hr>
+				      		<small><p>
+				      		Rory Court <br>
+				      		Simeon Stakić <br>
+				      		Nada Kourkmas <br>
+				      		Mayesha Kabir <br></p></small>
+				      	</center>
 				      </div>
-				      <div class="form-group">
-				         <label>Password</label>
-				         <input type="password" class="form-control" placeholder="Password" name="log_password">
-				      </div>
-				      <button type="submit" class="btn btn-black">Login</button>
-				      <?php loginHTML(); ?>
-				   </form>
+					</div>
 				</div>
-			</div>
+		    </div>
+		    <div class="col-md-8 col-lg-6">
+		      <div class="login d-flex align-items-center py-5">
+		        <div class="container">
+		          <div class="row">
+		            <div class="col-md-9 col-lg-8 mx-auto">
+		              <h3 class="login-heading mb-4">Welcome back!</h3>
+		              <form method="POST" action="#">
+		                <div class="form-label-group">
+		                  <input type="text" id="inputEmail" class="form-control" name="log_username" placeholder="Username" required autofocus>
+		                  <label for="inputEmail">Username</label>
+		                </div>
+		                <div class="form-label-group">
+		                  <input type="password" id="inputPassword" class="form-control" name="log_password" placeholder="Password" required>
+		                  <label for="inputPassword">Password</label>
+		                </div>
+		                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign in</button>
+		                <?php loginHTML(); ?>
+		              </form>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
 		</div>
 		
 		<!-- css -->
