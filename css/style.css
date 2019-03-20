@@ -111,8 +111,8 @@ body {
 
 .dest-pic {
   object-fit: cover;
-  width:250px;
-  height:250px;
+  width:275px;
+  height:310px;
 }
 
 .content {
@@ -124,7 +124,7 @@ body {
 }
 
 .reviews {
-	height: 55px;
+	height: 95px;
 	width: 550px;
 	overflow: scroll;
 	background-color: #CCDDFF;
@@ -139,7 +139,7 @@ body {
 }
 
 .activities {
-	height: 55px;
+	height: 95px;
 	width: 550px;
 	overflow: scroll;
 	background-color: #FFCCCC;

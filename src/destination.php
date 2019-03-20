@@ -54,7 +54,7 @@ function queryDestinations($sql) {
 		while($row = $result->fetch_assoc()) {
 			$destinations .=	'<div class="row">';
 			$destinations .=	    '<div class="col-lg-4">';
-			$destinations .=	      '&nbsp&nbsp<img class="dest-pic" src="'.$row["pic_url"].'">';
+			$destinations .=	      '<img class="dest-pic" src="'.$row["pic_url"].'">';
 			$destinations .=	    '</div>';
 			$destinations .=	    '<div class="col-lg-8 ml-auto">';
 			$destinations .=	      '<h3>'.$row["name"].' <small>✈️ </small></h3>';
@@ -64,10 +64,10 @@ function queryDestinations($sql) {
 							    			$destinations .= '⭐';
 										}
 			$destinations .=	      '<br>Location: 📍<i>'.$row["city_name"]. '</i>, <a href="https://maps.google.com/?q='.$row["address"].'" target="_blank"><b>@</b>'. $row["address"].'</a>' . '</p>';
-			$destinations .=		  '<div class="reviews"><div class="review-title"><b>📝 Reviews:</b></div>';
+			$destinations .=		  '<div class="reviews"><div class="review-title"><b>📝 Reviews:</b></div><br>';
 			$destinations .= 		  queryReviews($conn, $row["dest_ID"]);
 			$destinations .=		  '</div>';
-			$destinations .=		  '<div class="activities"><div class="activities-title"><b>🚴 Activities:</b></div>';
+			$destinations .=		  '<div class="activities"><div class="activities-title"><b>🚴 Activities:</b></div><br>';
 			$destinations .= 		  queryActivities($conn, $row["dest_ID"]);
 			$destinations .=		  '</div>';
 			$destinations .=	    '</div>';
@@ -84,13 +84,17 @@ function queryReviews($conn, $dest_ID) {
 	$sql = "SELECT rating, review, p_ID FROM Review WHERE dest_ID = $dest_ID";
 
 	$result = $conn->query($sql);
-	$i = 1;
+	$x = 1;
 
 	if ($result->num_rows > 0) {
 		$reviews = '';
 		while($row = $result->fetch_assoc()) {
-			$reviews .=	$i . '. ' . $row["review"] . ' - ' . queryPerson($conn, $row["p_ID"]) . '<hr>';
-			$i++;
+			$reviews .=	$x . '. ';
+			for ($i = 0; $i < $row["rating"]; $i++) {
+    			$reviews .= '<i>★</i>';
+			}
+			$reviews .=	' <i>' . $row["review"] . '</i> -' . queryPerson($conn, $row["p_ID"]) . '<br><br>';
+			$x++;
 		}
 		return $reviews;
 	}
@@ -131,12 +135,14 @@ function queryRecreation($conn, $dest_ID){
     if ($result->num_rows > 0) {
 		$recreations = '';
 		while($row = $result->fetch_assoc()) {
-			$recreations .= $row["name"] . ' | ' . $row["icon"] . ' | ' . $row["cost_avg"] . '<hr>';
+			$recreations .= $row["name"]; 
+			// TODO $recreations .= ' | ' . $row["icon"];
+			$recreations .= ' | cost: $' . $row["cost_avg"] . '<hr>';
 		}
-		return $recreations.'<br>';
+		return $recreations;
 	}
 	else {
-		return 'no recreation :(';
+		return 'no recreation :( <hr>';
 	}
 }
 
@@ -149,20 +155,16 @@ function queryTour($conn, $dest_ID){
 	 	if ($result->num_rows > 0) {
 	 	$tours = '';
 	 	while($row = $result->fetch_assoc()) {
-	 		$tours .= $row["name"] . ' | ';
-
+	 		$tours .= '<b>' . $row["name"] . '</b> | ';
 			$tours .= '<a href="https://' . $row["url"] .'" target="_blank">' . $row["provider"] . '</a>';
-
-
-			$tours .= ' | ' . $row["duration"] . '<hr>';
+			$tours .= ' | duration: ' . $row["duration"] . ' hrs';
+			$tours .= ' | cost: $' . $row["cost_avg"] . '<hr>';
 	 	}
 	 	return $tours;
 	 }
 	 else {
-	 	return 'no tours :(';
+	 	return 'no tours :( <hr>';
 	 }
-
-
 }
 
 ?>
