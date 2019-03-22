@@ -1,7 +1,7 @@
 <?php
 
 function displayResults() {
-	$sql = "SELECT dest_ID, city_name, name, pic_url, description, rating, address FROM Destination";
+	$sql = "SELECT * FROM Destination";
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		require 'connect.php';
@@ -33,7 +33,7 @@ function displayResults() {
 
 		//rank, rating, name
 
-		$sql = "SELECT dest_ID, city_name, name, pic_url, description, rating, address FROM Destination ";
+		$sql = "SELECT * FROM Destination ";
 		if(count($whereParts)) {
 	    	$sql .= "WHERE " . implode('AND ', $whereParts);
 		}
@@ -57,10 +57,15 @@ function queryDestinations($sql) {
 			$destinations .=	      '<img class="dest-pic" src="'.$row["pic_url"].'">';
 			$destinations .=	    '</div>';
 			$destinations .=	    '<div class="col-lg-8 ml-auto">';
-			$destinations .=	      '<h3>'.$row["name"].' <small>✈️ </small></h3>';
+			$destinations .=	    '<h3>'. $row["name"] . '&nbsp';
+			$destinations .= 			'<form class="form-horizontal" method="POST" action="#">
+										<input id="prodId" name="dest_ID" type="hidden" value="'.$row["dest_ID"].'">
+										<input class="btn btn-sm btn-light" type="submit" name="btnReview" value="📝"/>
+										</form></h3>';
 			$destinations .=	      '<p><b>'.$row["description"].'</b>';
-			$destinations .=	      '<br> rating: ';
-										for ($i = 0; $i < $row["rating"]; $i++) {
+
+			$destinations .=	      '<br> rank: ';
+										for ($i = 0; $i < $row["ranking"]; $i++) {
 							    			$destinations .= '⭐';
 										}
 			$destinations .=	      '<br>Location: 📍<i>'.$row["city_name"]. '</i>, <a href="https://maps.google.com/?q='.$row["address"].'" target="_blank"><b>@</b>'. $row["address"].'</a>' . '</p>';
@@ -77,6 +82,19 @@ function queryDestinations($sql) {
 	}
 	else {
 		echo "<p>no destinations :(</p>";
+	}
+
+	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+		if (isset($_POST['btnReview'])){
+			$dest_ID = $_POST['dest_ID'];
+			if(!isset($_SESSION)) 
+		    { 
+		        session_start(); 
+		    } 	
+		    require 'connect.php';
+			$username = $_SESSION['username'];
+			echo $dest_ID .'  ' . $username;
+		}
 	}
 }
 
