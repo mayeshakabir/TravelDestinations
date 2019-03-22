@@ -58,7 +58,7 @@ function queryDestinations($sql) {
 			$destinations .=	    '</div>';
 			$destinations .=	    '<div class="col-lg-8 ml-auto">';
 			$destinations .=	    '<h3>'. $row["name"] . '&nbsp';
-			$destinations .= 			'<form class="form-horizontal" method="POST" action="#">
+			$destinations .= 			'<form style="display: inline-block;" class="form-horizontal" method="POST" action="#">
 										<input id="prodId" name="dest_ID" type="hidden" value="'.$row["dest_ID"].'">
 										<input class="btn btn-sm btn-light" type="submit" name="btnReview" value="📝"/>
 										</form></h3>';
