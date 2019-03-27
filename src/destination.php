@@ -93,7 +93,15 @@ function queryDestinations($sql) {
 		    } 	
 		    require 'connect.php';
 			$username = $_SESSION['username'];
-			echo $dest_ID .'  ' . $username;
+
+			$sql="select * from Person where name='".$username."' limit 1";
+			$result=$conn->query($sql);
+			if($result->num_rows==1) {
+				$row = $result->fetch_assoc();
+				$p_ID = $row["p_ID"];
+			}
+
+			echo 'p_id: ' . $p_ID . ' dest_id: ' . $dest_ID . ' user: ' . $username;
 		}
 	}
 }
