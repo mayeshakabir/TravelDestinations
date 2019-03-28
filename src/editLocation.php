@@ -98,6 +98,9 @@ function generateDestination(){
 					SET name = '$n_name', description = '$n_description', rating = '$n_rating', visiting_hours = '$n_hours'
 					WHERE dest_id = '$dest_id'";
 			if ($conn->query($sql) === TRUE) {
+				$URL="homepage.php";
+				echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
+				echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
 			} else {
 			    echo "Error: " . $sql . "<br>" . $conn->error;
 			}
