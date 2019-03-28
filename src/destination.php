@@ -24,11 +24,11 @@ function displayResults() {
 		}
 		if ($activity !== "all" && $activity !== "") {
 			$whereParts[] = "dest_ID IN (SELECT dest_ID
-																	FROM Destination_Activity
-                   								WHERE act_ID IN (SELECT act_ID
-                                  								FROM Activity
-                                  								WHERE name LIKE '%$activity%')
-                   																)";
+									FROM Destination_Activity
+									WHERE act_ID IN (SELECT act_ID
+      								FROM Activity
+      								WHERE name LIKE '%$activity%')
+														)";
 		}
 
 		//rank, rating, name
@@ -44,6 +44,7 @@ function displayResults() {
 					da.dest_ID=d.dest_ID))) Something
 					 ";
 		}
+		
 		else { 
 			$sql = "SELECT * FROM Destination "; 
 		}
@@ -52,16 +53,41 @@ function displayResults() {
 	    	$sql .= "WHERE " . implode('AND ', $whereParts);
 		}
 
-		/*
-		if ($_POST['filter_topRating']) {
-			echo "top";
+		if (isset($_POST['filter_topRating'])) {
+			$sql = "SELECT *
+					FROM Destination
+					WHERE dest_id IN 
+					(SELECT id
+					FROM ( 
+						SELECT dest_ID as id, AVG(rating) AS avg_rating
+						FROM Review
+						GROUP BY id) T2
+					WHERE T2.avg_rating = 
+						(SELECT MAX(T1.avg_rating)
+						FROM ( 
+							SELECT dest_ID as id, AVG(rating) AS avg_rating
+							FROM Review
+							GROUP BY id) T1));
+										";
 
 		}
-		if ($_POST['filter_maxRating']) {
-			echo "top";
-
+		if (isset($_POST['filter_maxActivities'])) {
+			$sql = "SELECT *
+					FROM Destination
+					WHERE dest_id IN 
+					(SELECT id
+					FROM ( 
+						SELECT dest_ID as id, COUNT(act_ID) AS act_count
+						FROM Destination_Activity
+						GROUP BY id) T2
+					WHERE T2.act_count = 
+						(SELECT MAX(T1.act_count)
+						FROM ( 
+							SELECT dest_ID as id, Count(act_ID) AS act_count
+							FROM Destination_Activity
+							GROUP BY id) T1));
+										";
 		}
-		*/
 	}
 	// echo $sql;
 	queryDestinations($sql);
@@ -163,13 +189,20 @@ function queryDestinations($sql) {
 		}
 		if (isset($_POST['deleteBtnReview'])) {
 			$dest_ID = $_POST['delete_dest_ID'];
-			if(!isset($_SESSION)) 
-		    { 
-		        session_start(); 
-		    } 	
-		    require 'connect.php';
-
-			echo $dest_ID;
+			
+			require 'connect.php';
+			$sql = "DELETE FROM Destination WHERE dest_ID LIKE $dest_ID";
+			echo $sql;
+			$result = $conn->query($sql);
+			
+			if ($result === TRUE) {
+				$URL="homepage.php";
+				echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
+				echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
+			} 
+			else {
+				echo "Error removing record: " . $conn->error; 
+			}
 		}
 	}
 }
