@@ -186,7 +186,7 @@ function countrySelect() {
 		<option value="Sao Tome and Principe">Sao Tome and Principe</option> 
 		<option value="Saudi Arabia">Saudi Arabia</option> 
 		<option value="Senegal">Senegal</option> 
-		<option value="Serbia">Montenegro</option> 
+		<option value="Serbia">Serbia</option> 
 		<option value="Seychelles">Seychelles</option> 
 		<option value="Sierra Leone">Sierra Leone</option> 
 		<option value="Singapore">Singapore</option> 
