@@ -136,10 +136,16 @@ function queryDestinations($sql) {
 			$result=$conn->query($sql);
 			if($result->num_rows==1) {
 				$row = $result->fetch_assoc();
-				$p_ID = $row["p_ID"];
+				$p_ID = $row['p_ID'];
+				$_SESSION['p_id']  = $p_ID;
+				$_SESSION['dest_id']  = $dest_ID;
+				echo 'p_id: ' . $p_ID . ' dest_id: ' . $dest_ID . ' user: ' . $username;
+				// header("Location:src/addLocation.php");
+				$URL="addLocation.php";
+				echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
+				echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
 			}
 
-			echo 'p_id: ' . $p_ID . ' dest_id: ' . $dest_ID . ' user: ' . $username;
 		}
 		if (isset($_POST['updateBtnReview'])) {
 			$dest_ID = $_POST['update_dest_ID'];
@@ -148,6 +154,10 @@ function queryDestinations($sql) {
 		        session_start(); 
 		    } 	
 		    require 'connect.php';
+		    $_SESSION['dest_id']  = $dest_ID;
+		    $URL="editLocation.php";
+			echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
+			echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
 			
 			echo $dest_ID;
 		}

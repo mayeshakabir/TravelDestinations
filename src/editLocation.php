@@ -50,9 +50,15 @@ include 'generate.php';
 					</div>
 					<div class="row">
 						<div class ="col-sm-2">
-						Review:
+						Description:
 						</div> 
-						<textarea type="Review" name="add_review"></textarea><br>
+						<input type="text" name="add_description"></input><br>
+					</div>
+					<div class="row">
+						<div class ="col-sm-2">
+						Name:
+						</div> 
+						<input type="text" name="add_name">"sf"</input><br>
 					</div>
 					<input type="submit">
 					</form>
