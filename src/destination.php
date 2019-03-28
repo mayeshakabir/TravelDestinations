@@ -55,8 +55,21 @@ function displayResults() {
 
 		if (isset($_POST['filter_topRating'])) {
 			$sql = "SELECT *
-					FROM Destination
-					WHERE dest_id IN 
+					FROM ($sql) d, (SELECT dest_ID, AVG(rating) AS rating
+										FROM Review
+										GROUP BY dest_ID) dr
+					WHERE d.dest_ID = dr.dest_ID 
+					AND dr.rating = (SELECT MAX(dr.rating)
+									FROM ($sql) d, (SELECT dest_ID, AVG(rating) AS rating
+														FROM Review 
+														GROUP BY dest_ID) dr
+									WHERE dr.dest_ID = d.dest_ID);
+										";
+		}
+		/*if (isset($_POST['filter_topRating'])) {
+			$sql = "SELECT *
+					FROM ($sql) d
+					WHERE d.dest_id IN 
 					(SELECT id
 					FROM ( 
 						SELECT dest_ID as id, AVG(rating) AS avg_rating
@@ -69,9 +82,21 @@ function displayResults() {
 							FROM Review
 							GROUP BY id) T1));
 										";
-
-		}
+		}*/
 		if (isset($_POST['filter_maxActivities'])) {
+			$sql = "SELECT *
+					FROM ($sql) d, (SELECT dest_ID, COUNT(*) AS num
+                    					FROM Destination_Activity
+                    					GROUP BY dest_ID) r               
+					WHERE d.dest_ID = r.dest_ID 
+					AND r.num = (SELECT MAX(num)
+								FROM ($sql) d, (SELECT dest_ID, COUNT(*) AS num
+                    						FROM Destination_Activity
+                    						GROUP BY dest_ID) r
+											WHERE d.dest_ID = r.dest_ID)
+										";
+		}
+		/*if (isset($_POST['filter_maxActivities'])) {
 			$sql = "SELECT *
 					FROM Destination
 					WHERE dest_id IN 
@@ -87,7 +112,7 @@ function displayResults() {
 							FROM Destination_Activity
 							GROUP BY id) T1));
 										";
-		}
+		}*/
 	}
 	// echo $sql;
 	queryDestinations($sql);
