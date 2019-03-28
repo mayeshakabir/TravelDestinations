@@ -126,7 +126,7 @@ function queryDestinations($sql) {
 										<input name="delete_dest_ID" type="hidden" value="'.$row["dest_ID"].'">
 										<input class="btn btn-sm btn-light" type="submit" name="deleteBtnReview" value="❌"/>
 										</form>';
-			// }
+			//}
 
 			$destinations .= 		'</h3>';
 			$destinations .=	      '<p><b>'.$row["description"].'</b>';
