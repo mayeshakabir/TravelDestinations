@@ -5,6 +5,19 @@ include 'destination.php';
 include 'countryList.php'; 
 include 'activityList.php';
 include 'generate.php';
+
+$dest_id = $_SESSION['dest_id'];
+$sql = "SELECT * FROM Destination WHERE dest_id LIKE '$dest_id'";
+$result =  $conn->query($sql);
+if ($result) {
+	$row = $result->fetch_assoc();
+	$p_name = $row["name"];
+	$p_description = $row["description"];
+	$p_rating = $row["rating"];
+	$p_hours = $row["visiting_hours"];
+}
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,56 +32,34 @@ include 'generate.php';
 	</head>
 	<body>
 		<div class="container-fluid">
-			<div class="row">
-				<div class="d-block col-sm-3">
-		            <div class="py-2 flex-grow-1">
-		                <div class="sidebar flex-sm-column">
-		                    <h1 class="my-4">🌏 Travel:
-		                    </h1>
-		                    
-		                </div>
-		            </div>
-		        </div>
-				<div class="col content">
-					<h1> Users will be able to add destinations here</h1>
+				<div class="col content edit">
+					<h1>🌏 Travel →  <small>Edit Destinations</small></h1>
 					<form action="#" method="post">
-					<div class="row">
-						<div class="col-sm-2">
-						Rating:
-						</div>
-						<div class="form_input">
-							<select id="filter_rating" class="form-control" name="add_rating">
-								<option value="" disabled selected hidden>choose Rating</option>
-								<option value="">n/a</option> 
-								<option value=5>⭐⭐⭐⭐⭐</option> 
-								<option value=4>⭐⭐⭐⭐</option> 
-								<option value=3>⭐⭐⭐</option> 
-								<option value=2>⭐⭐</option> 
-								<option value=1>⭐</option> 
-	        				</select>
-						</div>
+
+					<div class="form-group">
+					    <label for="exampleInputEmail1">Name</label>
+					    <input class="form-control" type="text" name="n_name" value = "<?php echo $p_name; ?>">
 					</div>
-					<div class="row">
-						<div class ="col-sm-2">
-						Description:
-						</div> 
-						<input type="text" name="add_description"></input><br>
+					<div class="form-group">
+					    <label for="exampleInputEmail1">Description</label>
+					    <input class="form-control" type="text" name="n_description" value = "<?php echo $p_description; ?>">
 					</div>
-					<div class="row">
-						<div class ="col-sm-2">
-						Name:
-						</div> 
-						<input type="text" name="add_name">"sf"</input><br>
+					<div class="form-group">
+					    <label for="exampleInputEmail1">Rating</label>
+					    <input class="form-control" type="text" name="n_rating" value = "<?php echo $p_rating; ?>">
 					</div>
+					<div class="form-group">
+					    <label for="exampleInputEmail1">Hours</label>
+					    <input class="form-control" type="text" name="n_hours" value = "<?php echo $p_hours; ?>">
+					</div>
+
+
 					<input type="submit">
 					</form>
 					<?php
-					echo generateDestination();
-					//generateDestination();   <-- THIS IS CAUSING PROBLEMS
-					
+					echo generateDestination();					
 					?>
 				</div>
-			</div>
 		</div>
 		
 		<!-- css -->
@@ -88,20 +79,24 @@ function generateDestination(){
 	require 'connect.php';
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-		$dest_review = (isset($_POST['add_review'])) ? $_POST['add_review'] : null;
-		$dest_rating = (isset($_POST['add_rating'])) ? $_POST['add_rating'] : null;
-		$p_id = $_SESSION['p_id'];
+		$n_name = (isset($_POST['n_name'])) ? $_POST['n_name'] : null;
+		$n_description = (isset($_POST['n_description'])) ? $_POST['n_description'] : null;
+		$n_rating = (isset($_POST['n_rating'])) ? $_POST['n_rating'] : null;
+		$n_hours = (isset($_POST['n_hours'])) ? $_POST['n_hours'] : null;
+
 		$dest_id = $_SESSION['dest_id'];
 
-		echo 'p_id: ' . $p_id . ' dest_id: ' . $dest_id . ' user: ';
+		// echo 'n_name: ' . $n_name . ' n_description: ' . $n_description . ' user: ';
 
 		$sql = "";
 
-		if ($dest_review === null) {
-			echo 'please write a review, try again!';
+		if ($n_name === null) {
+			echo 'please give a name, try again!';
 			return;
 		} else {
-			$sql = "INSERT INTO Review (rev_id, p_id, dest_id, rating, review) VALUES (null, '$p_id', '$dest_id', '$dest_rating', '$dest_review')";
+			$sql = "UPDATE Destination
+					SET name = '$n_name', description = '$n_description', rating = '$n_rating', visiting_hours = '$n_hours'
+					WHERE dest_id = '$dest_id'";
 			if ($conn->query($sql) === TRUE) {
 			} else {
 			    echo "Error: " . $sql . "<br>" . $conn->error;

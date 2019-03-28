@@ -18,6 +18,10 @@ body {
     margin: 0 auto;
 }
 
+.edit {
+  width: 50%;
+}
+
 .names {
     margin: 0 auto;
     margin-top: 80%;
