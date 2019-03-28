@@ -89,7 +89,7 @@ include 'activityList.php';
 								</div>
 								<hr>
 								<div class="form_input">
-									Most User Ratings: <input type="checkbox" id="filter_maxRating" name="filter_maxRating">
+									Most Activities: <input type="checkbox" id="filter_maxActivities" name="filter_maxActivities">
 								</div>
 								<hr>
 								<input type="submit" name="submit" value="search" class="btn btn-primary"/>
@@ -98,7 +98,7 @@ include 'activityList.php';
 		            </div>
 		        </div>
 				<div class="col content">
-					<button style="float: right;" class="btn btn-primary" onclick="location.href='addLocation.php'">Add a Location</button>
+					<!-- <button style="float: right;" class="btn btn-primary" onclick="location.href='addLocation.php'">Add a Location</button> -->
 					<?php
 					displayResults();
 					?>
