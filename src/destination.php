@@ -115,6 +115,8 @@ function queryDestinations($sql) {
 										<input class="btn btn-sm btn-light" type="submit" name="btnReview" value="📝"/>
 										</form>';
 
+			// if ($_SESSION['username'] === 'nada') {
+
 			$destinations .= 			'<form style="display: inline-block;" class="form-horizontal" method="POST" action="#">
 										<input name="update_dest_ID" type="hidden" value="'.$row["dest_ID"].'">
 										<input class="btn btn-sm btn-light" type="submit" name="updateBtnReview" value="✏️"/>
@@ -124,6 +126,7 @@ function queryDestinations($sql) {
 										<input name="delete_dest_ID" type="hidden" value="'.$row["dest_ID"].'">
 										<input class="btn btn-sm btn-light" type="submit" name="deleteBtnReview" value="❌"/>
 										</form>';
+			// }
 
 			$destinations .= 		'</h3>';
 			$destinations .=	      '<p><b>'.$row["description"].'</b>';
