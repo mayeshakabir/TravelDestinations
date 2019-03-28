@@ -15,27 +15,15 @@ include 'generate.php';
 		<!-- css -->
 		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
 	</head>
 	<body>
 		<div class="container-fluid">
-			<div class="row">
-				<div class="d-block col-sm-3">
-		            <div class="py-2 flex-grow-1">
-		                <div class="sidebar flex-sm-column">
-		                    <h1 class="my-4">🌏 Travel:
-		                    </h1>
-		                    
-		                </div>
-		            </div>
-		        </div>
-				<div class="col content">
-					<h1> Users will be able to add destinations here</h1>
-					<form action="#" method="post">
-					<div class="row">
-						<div class="col-sm-2">
-						Rating:
-						</div>
+			<div class="edit">
+				<h1>🌏 Travel →  <small>Add Review</small></h1>
+				<form action="#" method="post">
+					<div class="form-group">
+						<label>Rating:</label>
 						<div class="form_input">
 							<select id="filter_rating" class="form-control" name="add_rating">
 								<option value="" disabled selected hidden>choose Rating</option>
@@ -48,20 +36,16 @@ include 'generate.php';
 	        				</select>
 						</div>
 					</div>
-					<div class="row">
-						<div class ="col-sm-2">
-						Review:
-						</div> 
-						<textarea type="Review" name="add_review"></textarea><br>
+					<div class="form-group">
+						<label>Review:</label>
+						<textarea class="form-control" type="Review" name="add_review"></textarea><br>
 					</div>
-					<input type="submit">
-					</form>
-					<?php
-					echo generateDestination();
-					//generateDestination();   <-- THIS IS CAUSING PROBLEMS
-					
-					?>
-				</div>
+					<input type="submit" class="btn btn-primary">
+				</form>
+				<?php
+				echo generateDestination();
+				//generateDestination();   <-- THIS IS CAUSING PROBLEMS
+				?>
 			</div>
 		</div>
 		

@@ -28,33 +28,30 @@ if ($result) {
 		<!-- css -->
 		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
 	</head>
 	<body>
 		<div class="container-fluid">
-				<div class="col content edit">
+				<div class="edit">
 					<h1>🌏 Travel →  <small>Edit Destinations</small></h1>
 					<form action="#" method="post">
-
-					<div class="form-group">
-					    <label for="exampleInputEmail1">Name</label>
-					    <input class="form-control" type="text" name="n_name" value = "<?php echo $p_name; ?>">
-					</div>
-					<div class="form-group">
-					    <label for="exampleInputEmail1">Description</label>
-					    <input class="form-control" type="text" name="n_description" value = "<?php echo $p_description; ?>">
-					</div>
-					<div class="form-group">
-					    <label for="exampleInputEmail1">Rating</label>
-					    <input class="form-control" type="text" name="n_rating" value = "<?php echo $p_rating; ?>">
-					</div>
-					<div class="form-group">
-					    <label for="exampleInputEmail1">Hours</label>
-					    <input class="form-control" type="text" name="n_hours" value = "<?php echo $p_hours; ?>">
-					</div>
-
-
-					<input type="submit">
+						<div class="form-group">
+						    <label for="exampleInputEmail1">Name</label>
+						    <input class="form-control" type="text" name="n_name" value = "<?php echo $p_name; ?>">
+						</div>
+						<div class="form-group">
+						    <label for="exampleInputEmail1">Description</label>
+						    <input class="form-control" type="text" name="n_description" value = "<?php echo $p_description; ?>">
+						</div>
+						<div class="form-group">
+						    <label for="exampleInputEmail1">Rating</label>
+						    <input class="form-control" type="text" name="n_rating" value = "<?php echo $p_rating; ?>">
+						</div>
+						<div class="form-group">
+						    <label for="exampleInputEmail1">Hours</label>
+						    <input class="form-control" type="text" name="n_hours" value = "<?php echo $p_hours; ?>">
+						</div>
+						<input type="submit" class="btn btn-primary">
 					</form>
 					<?php
 					echo generateDestination();					
