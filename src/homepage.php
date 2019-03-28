@@ -48,6 +48,7 @@ include 'activityList.php';
 										<option value="" disabled selected hidden>choose Activity</option>
 										<option value="">n/a</option> 
 										<?php echo activitySelect(); ?>
+										<option value="all">All Activities</option> 
 									</select>
 								</div>
 								<hr>
@@ -81,6 +82,14 @@ include 'activityList.php';
 										<option value=2>⭐⭐</option> 
 										<option value=1>⭐</option> 
 	                				</select>
+								</div>
+								<hr>
+								<div class="form_input">
+									Top User Rated: <input type="checkbox" id="filter_topRating" name="filter_topRating">
+								</div>
+								<hr>
+								<div class="form_input">
+									Most User Ratings: <input type="checkbox" id="filter_maxRating" name="filter_maxRating">
 								</div>
 								<hr>
 								<input type="submit" name="submit" value="search" class="btn btn-primary"/>

@@ -13,14 +13,6 @@ function displayResults() {
 		
 		$whereParts = array();
 
-		if ($activity !== "") {
-			$whereParts[] = "dest_ID IN (SELECT dest_ID
-																	FROM Destination_Activity
-                   								WHERE act_ID IN (SELECT act_ID
-                                  								FROM Activity
-                                  								WHERE name LIKE '%$activity%')
-                   																)";
-		}
 		if ($country !== "") {
 			$whereParts[] = "country_id IN (SELECT country_ID FROM Country WHERE name LIKE '%$country%') ";
 		}
@@ -30,14 +22,48 @@ function displayResults() {
 		if ($rating !== "") {
 			$whereParts[] = "rating LIKE '%$rating%' ";
 		}
+		if ($activity !== "all" && $activity !== "") {
+			$whereParts[] = "dest_ID IN (SELECT dest_ID
+																	FROM Destination_Activity
+                   								WHERE act_ID IN (SELECT act_ID
+                                  								FROM Activity
+                                  								WHERE name LIKE '%$activity%')
+                   																)";
+		}
 
 		//rank, rating, name
+		if ($activity === "all") { 
+			$sql = "SELECT * FROM (SELECT * 
+					FROM Destination d 
+					WHERE NOT EXISTS 
+					(SELECT * from Activity a 
+					WHERE NOT EXISTS 
+					(SELECT a.act_ID 
+					FROM Destination_Activity da 
+					WHERE da.act_ID=a.act_ID AND 
+					da.dest_ID=d.dest_ID))) Something
+					 ";
+		}
+		else { 
+			$sql = "SELECT * FROM Destination "; 
+		}
 
-		$sql = "SELECT * FROM Destination ";
 		if(count($whereParts)) {
 	    	$sql .= "WHERE " . implode('AND ', $whereParts);
 		}
+
+		/*
+		if ($_POST['filter_topRating']) {
+			echo "top";
+
+		}
+		if ($_POST['filter_maxRating']) {
+			echo "top";
+
+		}
+		*/
 	}
+	// echo $sql;
 	queryDestinations($sql);
 }
 
@@ -61,11 +87,23 @@ function queryDestinations($sql) {
 			$destinations .= 			'<form style="display: inline-block;" class="form-horizontal" method="POST" action="#">
 										<input id="prodId" name="dest_ID" type="hidden" value="'.$row["dest_ID"].'">
 										<input class="btn btn-sm btn-light" type="submit" name="btnReview" value="📝"/>
-										</form></h3>';
+										</form>';
+
+			$destinations .= 			'<form style="display: inline-block;" class="form-horizontal" method="POST" action="#">
+										<input name="update_dest_ID" type="hidden" value="'.$row["dest_ID"].'">
+										<input class="btn btn-sm btn-light" type="submit" name="updateBtnReview" value="✏️"/>
+										</form>';
+
+			$destinations .= 			'<form style="display: inline-block;" class="form-horizontal" method="POST" action="#">
+										<input name="delete_dest_ID" type="hidden" value="'.$row["dest_ID"].'">
+										<input class="btn btn-sm btn-light" type="submit" name="deleteBtnReview" value="❌"/>
+										</form>';
+
+			$destinations .= 		'</h3>';
 			$destinations .=	      '<p><b>'.$row["description"].'</b>';
 
 			$destinations .=	      '<br> rank: ';
-										for ($i = 0; $i < $row["ranking"]; $i++) {
+										for ($i = 0; $i < $row["rating"]; $i++) {
 							    			$destinations .= '⭐';
 										}
 			$destinations .=	      '<br>Location: 📍<i>'.$row["city_name"]. '</i>, <a href="https://maps.google.com/?q='.$row["address"].'" target="_blank"><b>@</b>'. $row["address"].'</a>' . '</p>';
@@ -85,7 +123,7 @@ function queryDestinations($sql) {
 	}
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-		if (isset($_POST['btnReview'])){
+		if (isset($_POST['btnReview'])) {
 			$dest_ID = $_POST['dest_ID'];
 			if(!isset($_SESSION)) 
 		    { 
@@ -102,6 +140,26 @@ function queryDestinations($sql) {
 			}
 
 			echo 'p_id: ' . $p_ID . ' dest_id: ' . $dest_ID . ' user: ' . $username;
+		}
+		if (isset($_POST['updateBtnReview'])) {
+			$dest_ID = $_POST['update_dest_ID'];
+			if(!isset($_SESSION)) 
+		    { 
+		        session_start(); 
+		    } 	
+		    require 'connect.php';
+			
+			echo $dest_ID;
+		}
+		if (isset($_POST['deleteBtnReview'])) {
+			$dest_ID = $_POST['delete_dest_ID'];
+			if(!isset($_SESSION)) 
+		    { 
+		        session_start(); 
+		    } 	
+		    require 'connect.php';
+
+			echo $dest_ID;
 		}
 	}
 }
