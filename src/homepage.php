@@ -4,6 +4,7 @@ include 'connect.php';
 include 'destination.php'; 
 include 'countryList.php'; 
 include 'activityList.php';
+include 'cityList.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -64,11 +65,7 @@ include 'activityList.php';
 									<select id="filter_city" class="form-control" name="filter_city">
 										<option value="" disabled selected hidden>choose Major City</option>
 										<option value="">n/a</option> 
-										<option value="London">London</option> 
-										<option value="Seattle">Seattle</option> 
-										<option value="Paris">Paris</option> 
-										<option value="Vancouver">Vancouver</option> 
-										<option value="Tokyo">Tokyo</option> 
+										<?php echo citySelect(); ?>
 	                				</select>
 								</div>
 								<hr>
