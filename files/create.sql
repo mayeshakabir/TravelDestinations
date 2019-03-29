@@ -195,7 +195,7 @@ VALUES (1, 'hiking', 0),
 (4, 'swimming', 15),
 (5, 'snowboarding', 50),
 (6, 'biking', 0),
-(7, 'tour of Rome', 200),
+(7, 'tour of Belgrade', 200),
 (8, 'tour of Tokyo', 100),
 (9, 'tour of London', 100),
 (10, 'tour of Berlin', 100);
@@ -216,7 +216,7 @@ VALUES (1, 'hike.png'),
 
 INSERT INTO Tour (act_ID, provider, url, duration)
 VALUES (3, 'Intrepid Travel', 'www.intrepidtravel.com/france',  7),
-(7, 'G Adventures', 'www.gadventures.com/rome', 6),
+(7, 'Tour Radar', 'www.tourradar.com/fa/sightseeing-belgrade', 6),
 (8, 'Topdeck', 'www.topdeck.com/tokyo', 4),
 (9, 'G Adventures', 'www.gadventures.com/london', 5),
 (10, 'Globus', 'www.globus.com/berlin', 6 );
@@ -224,7 +224,7 @@ VALUES (3, 'Intrepid Travel', 'www.intrepidtravel.com/france',  7),
 INSERT INTO Destination_Activity (act_ID, dest_ID)
 VALUES (2, 1),
 (2, 2),
-(3, 3),
+(3, 4),
 (2, 4),
 (6, 5),
 (1, 1),
@@ -298,7 +298,7 @@ VALUES
 (NULL, 'Vancouver', 4,'Grouse Mountain',
 'http://vanmag.com/wp-content/uploads/2017/11/GrouseMountain_001.jpg',   	9,'Popular mountain in BC', 1, '24 hours', '6400 Nancy Greene Way, North Vancouver, BC V7R 4K9');
 
-/* TODO: RUN THIS FIRST*/
+/* FOR DIVISION QUERY TESTING */
 INSERT INTO Destination_Activity (act_ID, dest_ID)
 VALUES
 (3, 1),
@@ -309,4 +309,23 @@ VALUES
 (9, 1),
 (10, 1);
 
-
+INSERT INTO Destination_Activity (act_ID, dest_ID)
+VALUES
+(1, 6),
+(2, 6),
+(2, 7),
+(4, 9),
+(5, 10),
+(6, 11),
+(1, 15),
+(2, 14),
+(2, 13),
+(3, 12),
+(3, 11),
+(4, 10),
+(5, 12),
+(6, 12),
+(7, 9),
+(7, 8),
+(7, 7),
+(8, 2);
