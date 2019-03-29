@@ -278,7 +278,6 @@ function queryPerson($conn, $p_ID) {
 }
 
 function queryActivities($conn, $dest_ID, $cost) {
-	echo $cost;
 	$activities = "";
 	$activities .= queryRecreation($conn, $dest_ID, $cost);
 	$activities .= queryTour($conn, $dest_ID, $cost);
