@@ -156,7 +156,7 @@ function queryDestinations($sql) {
 			$destinations .= 		'</h3>';
 			$destinations .=	      '<p><b>'.$row["description"].'</b>';
 
-			$destinations .=	      '<br> rank: ';
+			$destinations .=	      '<br> Destination Rating: ';
 										for ($i = 0; $i < $row["rating"]; $i++) {
 							    			$destinations .= '⭐';
 										}

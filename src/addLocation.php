@@ -26,8 +26,6 @@ include 'generate.php';
 						<label>Rating:</label>
 						<div class="form_input">
 							<select id="filter_rating" class="form-control" name="add_rating">
-								<option value="" disabled selected hidden>choose Rating</option>
-								<option value="">n/a</option> 
 								<option value=5>⭐⭐⭐⭐⭐</option> 
 								<option value=4>⭐⭐⭐⭐</option> 
 								<option value=3>⭐⭐⭐</option> 
@@ -71,16 +69,19 @@ function generateDestination(){
 		$p_id = $_SESSION['p_id'];
 		$dest_id = $_SESSION['dest_id'];
 
-		echo 'p_id: ' . $p_id . ' dest_id: ' . $dest_id . ' user: ';
+		// echo 'p_id: ' . $p_id . ' dest_id: ' . $dest_id . ' user: ';
 
 		$sql = "";
 
-		if ($dest_review === null) {
+		if ($dest_review === "") {
 			echo 'please write a review, try again!';
 			return;
 		} else {
 			$sql = "INSERT INTO Review (rev_id, p_id, dest_id, rating, review) VALUES (null, '$p_id', '$dest_id', '$dest_rating', '$dest_review')";
 			if ($conn->query($sql) === TRUE) {
+				$URL="homepage.php";
+				echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
+				echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
 			} else {
 			    echo "Error: " . $sql . "<br>" . $conn->error;
 			}
