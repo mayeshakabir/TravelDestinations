@@ -286,7 +286,11 @@ function queryActivities($conn, $dest_ID, $cost) {
 }
 
 function queryRecreation($conn, $dest_ID, $cost) {
-	$sql = "SELECT * FROM (Recreation NATURAL JOIN
+	$projection = "name";
+	if ($cost) {
+		$projection .= ", cost_avg";
+	}
+	$sql = "SELECT $projection FROM (Recreation NATURAL JOIN
       (SELECT act_ID, name, cost_avg FROM Activity
 		WHERE act_ID IN
      		(SELECT act_ID FROM Destination_Activity
@@ -300,7 +304,10 @@ function queryRecreation($conn, $dest_ID, $cost) {
 		while($row = $result->fetch_assoc()) {
 			$recreations .= $row["name"]; 
 			// TODO $recreations .= ' | ' . $row["icon"];
-			$recreations .= ' | cost: $' . $row["cost_avg"] . '<hr>';
+			if ($cost) {
+				$recreations .= ' | cost: $' . $row["cost_avg"]. '';
+			}
+			$recreations .= '<hr>';
 		}
 		return $recreations;
 	}
@@ -310,7 +317,11 @@ function queryRecreation($conn, $dest_ID, $cost) {
 }
 
 function queryTour($conn, $dest_ID, $cost) {
-	$sql = "SELECT name, provider, cost_avg, url, duration FROM (Activity NATURAL JOIN Tour NATURAL JOIN Destination_Activity)
+	$projection = "name, provider, url, duration";
+	if ($cost){
+		$projection .= ", cost_avg";
+	}
+	$sql = "SELECT $projection FROM (Activity NATURAL JOIN Tour NATURAL JOIN Destination_Activity)
      WHERE dest_ID = $dest_ID";
 
 		$result = $conn->query($sql);
@@ -321,7 +332,10 @@ function queryTour($conn, $dest_ID, $cost) {
 	 		$tours .= '<b>' . $row["name"] . '</b> | ';
 			$tours .= '<a href="https://' . $row["url"] .'" target="_blank">' . $row["provider"] . '</a>';
 			$tours .= ' | duration: ' . $row["duration"] . ' hrs';
-			$tours .= ' | cost: $' . $row["cost_avg"] . '<hr>';
+			if ($cost) {
+				$tours .= ' | cost: $' . $row["cost_avg"] . '';
+			}
+			$tours .= '<hr>';
 	 	}
 	 	return $tours;
 	 }
