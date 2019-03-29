@@ -2,6 +2,7 @@
 
 function displayResults() {
 	$sql = "SELECT * FROM Destination";
+	$cost = TRUE;
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		require 'connect.php';
@@ -113,12 +114,18 @@ function displayResults() {
 							GROUP BY id) T1));
 										";
 		}*/
+
+		if (isset($_POST['filter_cost'])) {
+			$cost = TRUE;
+		} else {
+			$cost = FALSE;
+		}
 	}
 	// echo $sql;
-	queryDestinations($sql);
+	queryDestinations($sql, $cost);
 }
 
-function queryDestinations($sql) {
+function queryDestinations($sql, $cost) {
 	/* TODO need to give filters to write up the query using a POST*/
 	//$conn = OpenCon();
 	require 'connect.php';
@@ -165,7 +172,7 @@ function queryDestinations($sql) {
 			$destinations .= 		  queryReviews($conn, $row["dest_ID"]);
 			$destinations .=		  '</div>';
 			$destinations .=		  '<div class="activities"><div class="activities-title"><b>🚴 Activities:</b></div><br>';
-			$destinations .= 		  queryActivities($conn, $row["dest_ID"]);
+			$destinations .= 		  queryActivities($conn, $row["dest_ID"], $cost);
 			$destinations .=		  '</div>';
 			$destinations .=	    '</div>';
 			$destinations .=	'</div><hr>';
@@ -270,14 +277,15 @@ function queryPerson($conn, $p_ID) {
 
 }
 
-function queryActivities($conn, $dest_ID) {
+function queryActivities($conn, $dest_ID, $cost) {
+	echo $cost;
 	$activities = "";
-	$activities .= queryRecreation($conn, $dest_ID);
-	$activities .= queryTour($conn, $dest_ID);
+	$activities .= queryRecreation($conn, $dest_ID, $cost);
+	$activities .= queryTour($conn, $dest_ID, $cost);
 	return $activities;
 }
 
-function queryRecreation($conn, $dest_ID){
+function queryRecreation($conn, $dest_ID, $cost) {
 	$sql = "SELECT * FROM (Recreation NATURAL JOIN
       (SELECT act_ID, name, cost_avg FROM Activity
 		WHERE act_ID IN
@@ -301,7 +309,7 @@ function queryRecreation($conn, $dest_ID){
 	}
 }
 
-function queryTour($conn, $dest_ID){
+function queryTour($conn, $dest_ID, $cost) {
 	$sql = "SELECT name, provider, cost_avg, url, duration FROM (Activity NATURAL JOIN Tour NATURAL JOIN Destination_Activity)
      WHERE dest_ID = $dest_ID";
 

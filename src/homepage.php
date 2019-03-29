@@ -82,6 +82,10 @@ include 'cityList.php';
 								</div>
 								<hr>
 								<div class="form_input">
+									Show Activity Costs: <input type="checkbox" id="filter_cost" name="filter_cost" checked>
+								</div>
+								<hr>
+								<div class="form_input">
 									Top User Rated: <input type="checkbox" id="filter_topRating" name="filter_topRating">
 								</div>
 								<hr>
